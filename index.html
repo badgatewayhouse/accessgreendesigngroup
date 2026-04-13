@@ -17,7 +17,7 @@
       --bg: #f5f4ef;
       --card-bg: #ffffff;
       --accent-green: #2d5a3d;
-      --accent-blue: #1a3a52;
+      --accent-blue: #1e6a9e;
     }
 
     html, body {
@@ -102,15 +102,8 @@
       transform: translateY(-2px);
     }
 
-    .card-indicator {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      margin-bottom: 1.25rem;
-    }
-
-    .indicator-green { background: var(--accent-green); }
-    .indicator-blue  { background: var(--accent-blue); }
+    .card.indicator-green { border-top: 2px solid var(--accent-green); }
+    .card.indicator-blue  { border-top: 2px solid var(--accent-blue); }
 
     .card-name {
       font-family: 'Cormorant Garamond', serif;
@@ -168,17 +161,15 @@
     <p class="projects-label">Projects</p>
 
     <div class="card-grid">
-      <a class="card" href="https://effortlesslivinghomes.com" target="_blank" rel="noopener">
-        <div class="card-indicator indicator-green"></div>
+      <a class="card indicator-green" href="https://effortlesslivinghomes.com" target="_blank" rel="noopener">
         <p class="card-name">Effortless Living Homes</p>
         <p class="card-url">effortlesslivinghomes.com</p>
         <p class="card-desc">Accessible, sustainable residential design for everyday living.</p>
       </a>
-      <a class="card" href="https://studiolmr.com" target="_blank" rel="noopener">
-        <div class="card-indicator indicator-blue"></div>
+      <a class="card indicator-blue" href="https://studiolmr.com" target="_blank" rel="noopener">
         <p class="card-name">Studio LMR</p>
         <p class="card-url">studiolmr.com</p>
-        <p class="card-desc">Glass mosaics, inspired by the natural world.</p>
+        <p class="card-desc">Glass mosaics, inspired by nature.</p>
       </a>
     </div>
   </main>

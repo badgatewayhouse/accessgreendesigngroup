@@ -46,44 +46,15 @@
     }
 
     .wordmark {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      color: #2a5c3a;
       margin-bottom: 3.5rem;
       opacity: 0;
       animation: fadeUp 0.8s ease forwards 0.1s;
-    }
-
-    .hero {
-      margin-bottom: 3.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.25s;
-    }
-
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-size: clamp(2.4rem, 6vw, 3.6rem);
-      line-height: 1.15;
-      color: var(--ink);
-      margin-bottom: 1.25rem;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent-green);
-    }
-
-    .hero p {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.8;
-      max-width: 400px;
-      letter-spacing: 0.02em;
     }
 
     .divider {
@@ -192,11 +163,6 @@
 
   <main>
     <p class="wordmark">Access Green Design Group</p>
-
-    <div class="hero">
-      <h1>Sustainable design,<br><em>thoughtfully built.</em></h1>
-      <p>A collective of projects exploring how homes and spaces can work better for people and the planet.</p>
-    </div>
 
     <hr class="divider">
     <p class="projects-label">Projects</p>

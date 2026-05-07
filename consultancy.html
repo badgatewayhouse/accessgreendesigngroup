@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultancy — Access Green Design Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg:          #f5f4ef;
+      --color-bg-soft:     #ffffff;
+      --color-ink:         #1a1c18;
+      --color-ink-2:       #3a3a38;
+      --color-pencil:      #6b6e66;
+      --color-rule:        #e5e3dc;
+      --color-rule-2:      #c8cac2;
+      --color-accent:      #2d5a3d;
+      --color-accent-soft: #e4ece5;
+
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body:    'Jost', sans-serif;
+
+      --fs-kicker:  0.8125rem;
+      --fs-body:    1rem;
+      --fs-lede:    1.0625rem;
+      --fs-tab:     1rem;
+      --fs-h2:      2.25rem;
+      --fs-h3:      1.625rem;
+
+      --space-1: 0.5rem;
+      --space-2: 1rem;
+      --space-3: 1.5rem;
+      --space-4: 2rem;
+      --space-5: 3rem;
+      --space-6: 4rem;
+
+      --ease: cubic-bezier(0.5, 0.1, 0.2, 1);
+      --dur-slide: 380ms;
+
+      --radius-sm: 2px;
+      --radius-md: 4px;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-ink-2);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: var(--fs-body);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── SITE HEADER ─────────────────────────────────────────────── */
+    .site-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--color-rule-2);
+    }
+    .site-header__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .site-header__back {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .site-header__wordmark {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 1.25rem;
+      color: var(--color-ink);
+      letter-spacing: -0.01em;
+      transition: color 0.2s ease;
+    }
+    .site-header__back:hover .site-header__wordmark {
+      color: var(--color-accent);
+    }
+
+    /* ── PAGE SHELL ──────────────────────────────────────────────── */
+    .page-shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-4);
+    }
+
+    /* ── SECTION HEADER ──────────────────────────────────────────── */
+    .consulting__header {
+      max-width: 720px;
+      margin-bottom: var(--space-5);
+    }
+    .consulting__kicker {
+      font-family: var(--font-body);
+      font-size: var(--fs-kicker);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin: 0 0 var(--space-2);
+    }
+    .consulting__title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: var(--fs-h2);
+      line-height: 1.1;
+      margin: 0 0 var(--space-3);
+      color: var(--color-ink);
+      letter-spacing: -0.01em;
+    }
+    .consulting__title em {
+      font-style: italic;
+      color: var(--color-accent);
+    }
+    .consulting__lede {
+      font-size: var(--fs-lede);
+      font-weight: 300;
+      color: var(--color-ink-2);
+      margin: 0;
+      max-width: 60ch;
+    }
+
+    /* ── TABLIST ─────────────────────────────────────────────────── */
+    .consulting__tablist {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--color-rule-2);
+      margin: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .consulting__tablist::-webkit-scrollbar { display: none; }
+
+    .consulting__tab {
+      appearance: none;
+      background: transparent;
+      border: none;
+      padding: var(--space-2) var(--space-3);
+      margin: 0;
+      cursor: pointer;
+      color: var(--color-pencil);
+      font-family: var(--font-body);
+      font-size: var(--fs-tab);
+      font-weight: 400;
+      line-height: 1.3;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: baseline;
+      gap: var(--space-1);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 160ms var(--ease), border-color 160ms var(--ease);
+    }
+    .consulting__tab:hover { color: var(--color-ink); }
+    .consulting__tab:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+    .consulting__tab[aria-selected="true"] {
+      color: var(--color-ink);
+      border-bottom-color: var(--color-accent);
+      font-weight: 500;
+    }
+    .consulting__tab .tab-num {
+      font-family: var(--font-display);
+      font-size: 0.875rem;
+      color: var(--color-accent);
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    /* ── PANEL VIEWPORT + SLIDING TRACK ──────────────────────────── */
+    .consulting__panels {
+      overflow: hidden;
+      position: relative;
+    }
+    .consulting__track {
+      display: flex;
+      transition: transform var(--dur-slide) var(--ease);
+      will-change: transform;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .consulting__track { transition: none; }
+    }
+
+    .consulting__panel {
+      flex: 0 0 100%;
+      padding: var(--space-5) 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: var(--space-5);
+      align-items: start;
+    }
+    .consulting__panel[aria-hidden="true"] {
+      visibility: hidden;
+    }
+
+    /* ── GALLERY ─────────────────────────────────────────────────── */
+    .gallery {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .gallery__hero {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: var(--color-bg-soft);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .gallery__hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 200ms var(--ease);
+    }
+    .gallery__thumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1);
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .gallery[data-count="1"] .gallery__thumbs { display: none; }
+
+    .gallery__thumb {
+      appearance: none;
+      border: 2px solid transparent;
+      background: var(--color-bg-soft);
+      padding: 0;
+      cursor: pointer;
+      width: 80px;
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: border-color 140ms var(--ease), transform 140ms var(--ease);
+      flex: 0 0 auto;
+    }
+    .gallery__thumb img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      opacity: 0.75;
+      transition: opacity 140ms var(--ease);
+    }
+    .gallery__thumb:hover img,
+    .gallery__thumb:focus-visible img { opacity: 1; }
+    .gallery__thumb[aria-current="true"] {
+      border-color: var(--color-accent);
+    }
+    .gallery__thumb[aria-current="true"] img { opacity: 1; }
+    .gallery__thumb:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    /* ── COPY COLUMN ─────────────────────────────────────────────── */
+    .copy__title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: var(--fs-h3);
+      line-height: 1.15;
+      margin: 0 0 var(--space-2);
+      color: var(--color-ink);
+      letter-spacing: -0.01em;
+    }
+    .copy__purpose {
+      font-size: var(--fs-lede);
+      font-weight: 300;
+      color: var(--color-ink-2);
+      margin: 0 0 var(--space-3);
+      border-left: 2px solid var(--color-accent);
+      padding-left: var(--space-2);
+      font-style: italic;
+    }
+    .copy__focus-label {
+      font-size: var(--fs-kicker);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-pencil);
+      margin: 0 0 var(--space-2);
+    }
+    .copy__bullets {
+      list-style: none;
+      margin: 0 0 var(--space-3);
+      padding: 0;
+    }
+    .copy__bullets li {
+      position: relative;
+      padding: 0.375rem 0 0.375rem 1.25rem;
+      font-size: var(--fs-body);
+      font-weight: 300;
+      color: var(--color-ink-2);
+      line-height: 1.5;
+      border-bottom: 1px solid var(--color-rule);
+    }
+    .copy__bullets li:last-child { border-bottom: none; }
+    .copy__bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.875rem;
+      width: 8px; height: 8px;
+      border: 1.5px solid var(--color-accent);
+      border-radius: 50%;
+    }
+    .copy__outcome {
+      background: var(--color-accent-soft);
+      border-left: 3px solid var(--color-accent);
+      padding: var(--space-2) var(--space-3);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      font-size: var(--fs-body);
+      font-weight: 300;
+      color: var(--color-ink-2);
+      line-height: 1.55;
+    }
+    .copy__outcome strong {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 400;
+      color: var(--color-accent);
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    /* ── CTA ─────────────────────────────────────────────────────── */
+    .consulting__cta {
+      margin-top: var(--space-5);
+      padding: var(--space-4);
+      background: var(--color-bg-soft);
+      border: 1px solid var(--color-rule-2);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .consulting__cta-text h3 {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 1.5rem;
+      margin: 0 0 0.25rem;
+      color: var(--color-ink);
+    }
+    .consulting__cta-text p {
+      margin: 0;
+      color: var(--color-pencil);
+      font-size: 0.9375rem;
+      font-weight: 300;
+    }
+    .consulting__cta-btn {
+      appearance: none;
+      border: none;
+      background: var(--color-accent);
+      color: #fff;
+      padding: 0.875rem 1.5rem;
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      font-weight: 500;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 160ms var(--ease), transform 160ms var(--ease);
+    }
+    .consulting__cta-btn:hover { background: #1f4a2d; }
+    .consulting__cta-btn:focus-visible {
+      outline: 2px solid var(--color-ink);
+      outline-offset: 2px;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 980px) {
+      .consulting__panel {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+      }
+      :root { --fs-h2: 1.875rem; --fs-h3: 1.375rem; }
+    }
+    @media (max-width: 640px) {
+      .site-header { padding: 1rem 1.5rem; }
+      .page-shell { padding: var(--space-5) var(--space-3); }
+      .gallery__hero { aspect-ratio: 3 / 2; }
+      .gallery__thumb { width: 64px; }
+      .consulting__cta { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-header__back">
+        <span class="site-header__wordmark">Access Green Design Group</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-shell">
+      <section class="consulting" aria-labelledby="consulting-title">
+
+        <header class="consulting__header">
+          <p class="consulting__kicker">Consultancy</p>
+          <h2 class="consulting__title" id="consulting-title">
+            Strategic guidance, <em>early in the project.</em>
+          </h2>
+          <p class="consulting__lede">
+            Three areas where the right code, accessibility, and feasibility
+            decisions — made before the design is locked in — save the most
+            time and capital.
+          </p>
+        </header>
+
+        <nav class="consulting__tablist" role="tablist" aria-label="Consulting focus areas">
+          <button class="consulting__tab" role="tab"
+                  id="tab-senior"
+                  aria-selected="true"
+                  aria-controls="panel-senior"
+                  tabindex="0">
+            <span class="tab-num">01</span>Senior Living
+          </button>
+          <button class="consulting__tab" role="tab"
+                  id="tab-multi"
+                  aria-selected="false"
+                  aria-controls="panel-multi"
+                  tabindex="-1">
+            <span class="tab-num">02</span>Multi-Family
+          </button>
+          <button class="consulting__tab" role="tab"
+                  id="tab-reno"
+                  aria-selected="false"
+                  aria-controls="panel-reno"
+                  tabindex="-1">
+            <span class="tab-num">03</span>Renovation &amp; Conversions
+          </button>
+        </nav>
+
+        <div class="consulting__panels">
+          <div class="consulting__track" id="consulting-track">
+
+            <!-- ── PANEL 1: SENIOR LIVING ─────────────────────────── -->
+            <div class="consulting__panel"
+                 role="tabpanel"
+                 id="panel-senior"
+                 aria-labelledby="tab-senior"
+                 aria-hidden="false">
+
+              <figure class="gallery" data-count="4">
+                <div class="gallery__hero">
+                  <img id="hero-senior"
+                       src="consultancy/images/senior-living-highrise-aerial-render.jpg"
+                       alt="Aerial render of a senior living highrise development"
+                       loading="lazy" />
+                </div>
+                <ul class="gallery__thumbs" role="list" aria-label="More images">
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="true"
+                            aria-label="Show image 1: aerial render"
+                            data-src="consultancy/images/senior-living-highrise-aerial-render.jpg"
+                            data-alt="Aerial render of a senior living highrise development">
+                      <img src="consultancy/images/senior-living-highrise-aerial-render.jpg" alt="" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 2: modern brick exterior"
+                            data-src="consultancy/images/senior-apartments-modern-brick-corner.jpg"
+                            data-alt="Modern brick senior apartment building at corner">
+                      <img src="consultancy/images/senior-apartments-modern-brick-corner.jpg" alt="" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 3: colonial entrance"
+                            data-src="consultancy/images/assisted-living-colonial-entrance.jpg"
+                            data-alt="Colonial style assisted living facility entrance">
+                      <img src="consultancy/images/assisted-living-colonial-entrance.jpg" alt="" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 4: garden patio"
+                            data-src="consultancy/images/craftsman-senior-living-garden-patio.jpg"
+                            data-alt="Craftsman style senior living with garden patio">
+                      <img src="consultancy/images/craftsman-senior-living-garden-patio.jpg" alt="" />
+                    </button>
+                  </li>
+                </ul>
+              </figure>
+
+              <div class="copy">
+                <h3 class="copy__title">Senior Living</h3>
+                <p class="copy__purpose">
+                  I help developers and operators make the right code,
+                  accessibility, and licensing decisions early in senior
+                  living projects — before they become costly constraints.
+                </p>
+                <p class="copy__focus-label">Key areas of focus</p>
+                <ul class="copy__bullets">
+                  <li>During Due Diligence: select the right code pathway (R-2, R-4, I-1, I-2)</li>
+                  <li>Align construction type and cost strategy</li>
+                  <li>Integrate licensing requirements from the start</li>
+                  <li>Coordinate accessibility across multiple standards</li>
+                  <li>Ensure design supports long-term operations and aging-in-place</li>
+                </ul>
+                <div class="copy__outcome">
+                  <strong>The result</strong>
+                  Reduce redesign, control cost, and preserve flexibility as
+                  the project evolves.
+                </div>
+              </div>
+            </div>
+
+            <!-- ── PANEL 2: MULTI-FAMILY ──────────────────────────── -->
+            <div class="consulting__panel"
+                 role="tabpanel"
+                 id="panel-multi"
+                 aria-labelledby="tab-multi"
+                 aria-hidden="true">
+
+              <figure class="gallery" data-count="3">
+                <div class="gallery__hero">
+                  <img id="hero-multi"
+                       src="consultancy/images/mixed-use-residential-retail-balconies.jpg"
+                       alt="Mixed-use residential building with retail and balconies"
+                       loading="lazy" />
+                </div>
+                <ul class="gallery__thumbs" role="list" aria-label="More images">
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="true"
+                            aria-label="Show image 1: mixed-use with balconies"
+                            data-src="consultancy/images/mixed-use-residential-retail-balconies.jpg"
+                            data-alt="Mixed-use residential building with retail and balconies">
+                      <img src="consultancy/images/mixed-use-residential-retail-balconies.jpg" alt="" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 2: urban brick at dusk"
+                            data-src="consultancy/images/mixed-use-urban-brick-dusk.jpg"
+                            data-alt="Urban mixed-use brick building at dusk">
+                      <img src="consultancy/images/mixed-use-urban-brick-dusk.jpg" alt="" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 3: suburban campus exterior"
+                            data-src="consultancy/images/senior-living-campus-suburban-exterior.jpg"
+                            data-alt="Suburban senior living campus exterior">
+                      <img src="consultancy/images/senior-living-campus-suburban-exterior.jpg" alt="" />
+                    </button>
+                  </li>
+                </ul>
+              </figure>
+
+              <div class="copy">
+                <h3 class="copy__title">Multi-Family</h3>
+                <p class="copy__purpose">
+                  I work with developers early in multi-family projects to
+                  align code decisions with density, cost, and feasibility —
+                  before the design gets locked in.
+                </p>
+                <p class="copy__focus-label">Key areas of focus</p>
+                <ul class="copy__bullets">
+                  <li>During Due Diligence: optimize construction type, height, and allowable area</li>
+                  <li>Evaluate podium and mixed-use strategies</li>
+                  <li>Coordinate accessibility requirements tied to funding</li>
+                  <li>Identify opportunities to reduce firewalls and system costs</li>
+                  <li>Align code strategy with budget and schedule expectations</li>
+                </ul>
+                <div class="copy__outcome">
+                  <strong>The result</strong>
+                  Better yield, fewer redesigns, and more predictable outcomes.
+                </div>
+              </div>
+            </div>
+
+            <!-- ── PANEL 3: RENOVATION & CONVERSIONS ──────────────── -->
+            <div class="consulting__panel"
+                 role="tabpanel"
+                 id="panel-reno"
+                 aria-labelledby="tab-reno"
+                 aria-hidden="true">
+
+              <figure class="gallery" data-count="4">
+                <div class="gallery__hero">
+                  <img id="hero-reno"
+                       src="consultancy/images/senior-living-urban-brick-ornate.jpg"
+                       alt="Ornate urban brick building being assessed for renovation"
+                       loading="lazy" />
+                </div>
+                <ul class="gallery__thumbs" role="list" aria-label="More images">
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="true"
+                            aria-label="Show image 1: ornate urban brick"
+                            data-src="consultancy/images/senior-living-urban-brick-ornate.jpg"
+                            data-alt="Ornate urban brick building being assessed for renovation">
+                      <img src="consultancy/images/senior-living-urban-brick-ornate.jpg" alt="" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 2: urban brick with flags"
+                            data-src="consultancy/images/urban-senior-living-brick-flags.jpg"
+                            data-alt="Urban brick building with street presence and flags">
+                      <img src="consultancy/images/urban-senior-living-brick-flags.jpg" alt="" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 3: colonial with parking"
+                            data-src="consultancy/images/assisted-living-colonial-parking-lot.jpg"
+                            data-alt="Colonial assisted living facility with parking lot">
+                      <img src="consultancy/images/assisted-living-colonial-parking-lot.jpg" alt="" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 4: architectural section drawing"
+                            data-src="consultancy/images/architectural-section-drawing.jpg"
+                            data-alt="Architectural section drawing showing building systems">
+                      <img src="consultancy/images/architectural-section-drawing.jpg" alt="" />
+                    </button>
+                  </li>
+                </ul>
+              </figure>
+
+              <div class="copy">
+                <h3 class="copy__title">Renovation, Repositioning &amp; Conversions</h3>
+                <p class="copy__purpose">
+                  I help developers evaluate existing buildings — office,
+                  residential, or underutilized assets — to determine the
+                  most viable path for renovation or conversion before
+                  design and capital are committed.
+                </p>
+                <p class="copy__focus-label">Key areas of focus</p>
+                <ul class="copy__bullets">
+                  <li>During Due Diligence: align existing construction type with target use</li>
+                  <li>Use the IEBC to minimize unnecessary upgrades</li>
+                  <li>Coordinate accessibility across multiple standards</li>
+                  <li>Evaluate multi-family vs. senior living feasibility</li>
+                  <li>Identify life safety and accessibility impacts early</li>
+                  <li>Align strategy with budget and schedule expectations</li>
+                </ul>
+                <div class="copy__outcome">
+                  <strong>The result</strong>
+                  Unlock value, reduce risk, and avoid costly missteps early
+                  in the process.
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="consulting__cta">
+          <div class="consulting__cta-text">
+            <h3>Get in touch</h3>
+            <p>To discuss a project or learn more about these services, contact Access Green Design Group.</p>
+          </div>
+          <a class="consulting__cta-btn" href="mailto:steve@accessgreendesigngroup.com">
+            Send an email →
+          </a>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+<script>
+(function () {
+  const tablist = document.querySelector('.consulting__tablist');
+  const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+  const track = document.getElementById('consulting-track');
+  const panels = Array.from(document.querySelectorAll('.consulting__panel'));
+
+  function activateTab(idx, { focus = false } = {}) {
+    tabs.forEach((tab, i) => {
+      const selected = i === idx;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.setAttribute('tabindex', selected ? '0' : '-1');
+      if (selected && focus) tab.focus();
+    });
+    panels.forEach((p, i) => {
+      p.setAttribute('aria-hidden', String(i !== idx));
+    });
+    track.style.transform = `translateX(-${idx * 100}%)`;
+  }
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => activateTab(i));
+    tab.addEventListener('keydown', (e) => {
+      let next = null;
+      switch (e.key) {
+        case 'ArrowRight': next = (i + 1) % tabs.length; break;
+        case 'ArrowLeft':  next = (i - 1 + tabs.length) % tabs.length; break;
+        case 'Home':       next = 0; break;
+        case 'End':        next = tabs.length - 1; break;
+      }
+      if (next !== null) {
+        e.preventDefault();
+        activateTab(next, { focus: true });
+      }
+    });
+  });
+
+  document.querySelectorAll('.gallery').forEach((gallery) => {
+    const heroImg = gallery.querySelector('.gallery__hero img');
+    const thumbBtns = gallery.querySelectorAll('.gallery__thumb');
+
+    thumbBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const src = btn.dataset.src;
+        const alt = btn.dataset.alt || '';
+        if (!src) return;
+
+        heroImg.style.opacity = '0';
+        setTimeout(() => {
+          heroImg.src = src;
+          heroImg.alt = alt;
+          heroImg.style.opacity = '1';
+        }, 120);
+
+        thumbBtns.forEach((b) => b.setAttribute('aria-current', 'false'));
+        btn.setAttribute('aria-current', 'true');
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

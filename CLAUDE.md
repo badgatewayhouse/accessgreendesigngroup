@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+<!-- TODO: Flesh out with full project conventions, build/deploy instructions, and coding standards -->
+
 ## Image Strategy
 
 Full-size source photos are **never committed to git**. They live in `images-src/` (gitignored) and get optimized before use.

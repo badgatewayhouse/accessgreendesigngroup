@@ -6,8 +6,7 @@
     "enabled": true
   },
   "assets": {
-    "directory": ".",
-    "exclude": ["node_modules", "scripts", "images-src", "package.json", "package-lock.json"]
+    "directory": "."
   },
   "compatibility_flags": [
     "nodejs_compat"

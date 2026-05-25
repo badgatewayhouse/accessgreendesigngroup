@@ -4,3 +4,9 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# Original high-res source images (not committed)
+images-src/
+
+# Node
+node_modules/

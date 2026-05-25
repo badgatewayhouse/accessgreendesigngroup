@@ -81,6 +81,9 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
+      grid-template-areas:
+        "a b"
+        "c c";
     }
 
     .card {
@@ -95,9 +98,9 @@
       animation: fadeUp 0.8s ease forwards;
     }
 
-    .card:nth-child(1) { animation-delay: 0.6s; }
-    .card:nth-child(2) { animation-delay: 0.72s; }
-    .card:nth-child(3) { animation-delay: 0.84s; }
+    .card:nth-child(1) { animation-delay: 0.6s;  grid-area: a; }
+    .card:nth-child(2) { animation-delay: 0.72s; grid-area: b; }
+    .card:nth-child(3) { animation-delay: 0.84s; grid-area: c; }
 
     .card:hover {
       border-color: var(--muted);

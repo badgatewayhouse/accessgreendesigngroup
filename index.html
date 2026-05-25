@@ -149,6 +149,9 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    .flag-test { display: none; }
+    body.test-mode .flag-test { display: block; }
+
     @media (max-width: 480px) {
       .card-grid { grid-template-columns: 1fr; }
       main { padding: 3rem 1.5rem; }
@@ -174,7 +177,7 @@
         <p class="card-url">studiolmr.com</p>
         <p class="card-desc">Glass mosaics, inspired by nature.</p>
       </a>
-      <a class="card indicator-warm" href="consultancy.html">
+      <a class="card indicator-warm flag-test" href="consultancy.html">
         <p class="card-name">Consultancy</p>
         <p class="card-url">code &amp; accessibility advisory</p>
         <p class="card-desc">Strategic guidance for senior living, multi-family, and renovation projects — aligning code, cost, and care delivery from day one.</p>
@@ -183,5 +186,13 @@
   </main>
 
 
+  <script>
+    (function() {
+      var params = new URLSearchParams(location.search);
+      if (params.get('mode') === 'test') sessionStorage.setItem('agdg-mode', 'test');
+      if (params.get('mode') === 'live') sessionStorage.removeItem('agdg-mode');
+      if (sessionStorage.getItem('agdg-mode') === 'test') document.body.classList.add('test-mode');
+    })();
+  </script>
 </body>
 </html>

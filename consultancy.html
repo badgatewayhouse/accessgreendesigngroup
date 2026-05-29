@@ -137,6 +137,9 @@
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      /* Auto-number tabs so sections can be reordered in the markup
+         (move a tab + its panel together) without renumbering by hand. */
+      counter-reset: tabnum;
     }
     .consulting__tablist::-webkit-scrollbar { display: none; }
 
@@ -147,6 +150,7 @@
       padding: var(--space-2) var(--space-3);
       margin: 0;
       cursor: pointer;
+      counter-increment: tabnum;
       color: var(--color-pencil);
       font-family: var(--font-body);
       font-size: var(--fs-tab);
@@ -177,6 +181,9 @@
       color: var(--color-accent);
       font-weight: 400;
       font-style: italic;
+    }
+    .consulting__tab .tab-num::before {
+      content: counter(tabnum, decimal-leading-zero);
     }
 
     /* ── PANEL VIEWPORT + SLIDING TRACK ──────────────────────────── */
@@ -264,6 +271,24 @@
       outline: 2px solid var(--color-accent);
       outline-offset: 2px;
     }
+
+    /* Expand square — shown in place of overflow thumbs when the strip
+       would run past two rows; clicking it reveals every image. */
+    .gallery__expand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-accent-soft);
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.875rem;
+      line-height: 1.1;
+      text-align: center;
+    }
+    .gallery__expand:hover { background: var(--color-accent); color: #fff; }
+    .gallery__thumbs li[hidden] { display: none; }
 
     /* ── COPY COLUMN ─────────────────────────────────────────────── */
     .copy__title {
@@ -420,9 +445,9 @@
             Strategic guidance, <em>early in the project.</em>
           </h2>
           <p class="consulting__lede">
-            Three areas where the right code, accessibility, and feasibility
-            decisions — made before the design is locked in — save the most
-            time and capital.
+            Four ways I help developers, operators, and design teams get code,
+            accessibility, and feasibility right early — before decisions
+            harden into costly constraints.
           </p>
         </header>
 
@@ -432,21 +457,28 @@
                   aria-selected="true"
                   aria-controls="panel-senior"
                   tabindex="0">
-            <span class="tab-num">01</span>Senior Living
+            <span class="tab-num"></span>Senior Living
           </button>
           <button class="consulting__tab" role="tab"
                   id="tab-multi"
                   aria-selected="false"
                   aria-controls="panel-multi"
                   tabindex="-1">
-            <span class="tab-num">02</span>Multi-Family
+            <span class="tab-num"></span>Multi-Family
           </button>
           <button class="consulting__tab" role="tab"
                   id="tab-reno"
                   aria-selected="false"
                   aria-controls="panel-reno"
                   tabindex="-1">
-            <span class="tab-num">03</span>Renovation &amp; Conversions
+            <span class="tab-num"></span>Renovations
+          </button>
+          <button class="consulting__tab" role="tab"
+                  id="tab-peer"
+                  aria-selected="false"
+                  aria-controls="panel-peer"
+                  tabindex="-1">
+            <span class="tab-num"></span>Peer Review
           </button>
         </nav>
 
@@ -460,44 +492,156 @@
                  aria-labelledby="tab-senior"
                  aria-hidden="false">
 
-              <figure class="gallery" data-count="4">
+              <figure class="gallery" data-count="18">
                 <div class="gallery__hero">
                   <img id="hero-senior"
-                       src="consultancy/images/senior-living-highrise-aerial-render-800w.webp"
-                       alt="Aerial render of a senior living highrise development"
+                       src="consultancy/images/senior-living-CSH%20Highland%20Park_04-800w.webp"
+                       alt="Modern senior living community lit at dusk"
                        width="800" height="600" decoding="async" loading="lazy" />
                 </div>
                 <ul class="gallery__thumbs" role="list" aria-label="More images">
                   <li>
                     <button class="gallery__thumb" type="button" aria-current="true"
-                            aria-label="Show image 1: aerial render"
+                            aria-label="Show image 1: modern community at dusk"
+                            data-src="consultancy/images/senior-living-CSH%20Highland%20Park_04-800w.webp"
+                            data-alt="Modern senior living community lit at dusk">
+                      <img src="consultancy/images/senior-living-CSH%20Highland%20Park_04-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 2: mountain-backed entry"
+                            data-src="consultancy/images/senior-living-HRBoulder01-800w.webp"
+                            data-alt="Senior living community with a flag-lined entry and mountain backdrop">
+                      <img src="consultancy/images/senior-living-HRBoulder01-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 3: palm-lined entrance"
+                            data-src="consultancy/images/senior-living-BoyntonBeach_049-800w.webp"
+                            data-alt="Senior living community entrance framed by palm trees">
+                      <img src="consultancy/images/senior-living-BoyntonBeach_049-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 4: modern mid-rise"
+                            data-src="consultancy/images/senior-living-WestAlex_02-800w.webp"
+                            data-alt="Modern mid-rise senior living building with a brick facade">
+                      <img src="consultancy/images/senior-living-WestAlex_02-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 5: colonial-style entry"
+                            data-src="consultancy/images/senior-living-Bridges%20at%20Warwick,%20PA_052-800w.webp"
+                            data-alt="Colonial-style senior living community with a columned entry">
+                      <img src="consultancy/images/senior-living-Bridges%20at%20Warwick,%20PA_052-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 6: single-story craftsman community"
+                            data-src="consultancy/images/senior-living-63022_SunriseofMonterey_Monterey_CA_Exterior2-800w.webp"
+                            data-alt="Single-story senior living community with a craftsman-style entry">
+                      <img src="consultancy/images/senior-living-63022_SunriseofMonterey_Monterey_CA_Exterior2-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 7: resident lounge"
+                            data-src="consultancy/images/senior-living-WestAlex_12-800w.webp"
+                            data-alt="Resident lounge in a senior living community">
+                      <img src="consultancy/images/senior-living-WestAlex_12-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 8: rooftop terrace"
+                            data-src="consultancy/images/senior-living-KensingtonBethesda_021-800w.webp"
+                            data-alt="Rooftop terrace and lounge at an urban senior living community">
+                      <img src="consultancy/images/senior-living-KensingtonBethesda_021-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 9: courtyard and patio"
+                            data-src="consultancy/images/senior-living-HRBoulder07-800w.webp"
+                            data-alt="Landscaped courtyard and patio at a senior living community">
+                      <img src="consultancy/images/senior-living-HRBoulder07-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 10: residences among trees"
+                            data-src="consultancy/images/senior-living-Hunter.%20Woods%20(48)-800w.webp"
+                            data-alt="Multi-story senior living residences set among trees">
+                      <img src="consultancy/images/senior-living-Hunter.%20Woods%20(48)-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 11: coastal craftsman building"
+                            data-src="consultancy/images/senior-living-IMG_0415-800w.webp"
+                            data-alt="Craftsman-style senior living building near the coast">
+                      <img src="consultancy/images/senior-living-IMG_0415-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 12: urban brick building on a corner"
+                            data-src="consultancy/images/senior-living-KensingtonBethesda_097-800w.webp"
+                            data-alt="Brick urban senior living building on a street corner">
+                      <img src="consultancy/images/senior-living-KensingtonBethesda_097-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 13: modern multi-story community"
+                            data-src="consultancy/images/senior-living-Maplewood_40-800w.webp"
+                            data-alt="Modern multi-story senior living community">
+                      <img src="consultancy/images/senior-living-Maplewood_40-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 14: aerial view of a campus"
+                            data-src="consultancy/images/senior-living-Sunrise%20Monterey%20Aerials%20102608%20013crop-800w.webp"
+                            data-alt="Aerial view of a single-story senior living campus">
+                      <img src="consultancy/images/senior-living-Sunrise%20Monterey%20Aerials%20102608%20013crop-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 15: dining area"
+                            data-src="consultancy/images/senior-living-WestAlex_15-800w.webp"
+                            data-alt="Dining area in a senior living community">
+                      <img src="consultancy/images/senior-living-WestAlex_15-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 16: suburban exterior"
+                            data-src="consultancy/images/senior-living-campus-suburban-exterior-800w.webp"
+                            data-alt="Suburban multi-story senior living building">
+                      <img src="consultancy/images/senior-living-campus-suburban-exterior-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 17: high-rise aerial rendering"
                             data-src="consultancy/images/senior-living-highrise-aerial-render-800w.webp"
-                            data-alt="Aerial render of a senior living highrise development">
+                            data-alt="Aerial rendering of a senior living high-rise">
                       <img src="consultancy/images/senior-living-highrise-aerial-render-160w.webp" alt="" width="160" height="120" loading="lazy" />
                     </button>
                   </li>
                   <li>
                     <button class="gallery__thumb" type="button" aria-current="false"
-                            aria-label="Show image 2: modern brick exterior"
-                            data-src="consultancy/images/senior-apartments-modern-brick-corner-800w.webp"
-                            data-alt="Modern brick senior apartment building at corner">
-                      <img src="consultancy/images/senior-apartments-modern-brick-corner-160w.webp" alt="" width="160" height="120" loading="lazy" />
-                    </button>
-                  </li>
-                  <li>
-                    <button class="gallery__thumb" type="button" aria-current="false"
-                            aria-label="Show image 3: colonial entrance"
-                            data-src="consultancy/images/assisted-living-colonial-entrance-800w.webp"
-                            data-alt="Colonial style assisted living facility entrance">
-                      <img src="consultancy/images/assisted-living-colonial-entrance-160w.webp" alt="" width="160" height="120" loading="lazy" />
-                    </button>
-                  </li>
-                  <li>
-                    <button class="gallery__thumb" type="button" aria-current="false"
-                            aria-label="Show image 4: garden patio"
-                            data-src="consultancy/images/craftsman-senior-living-garden-patio-800w.webp"
-                            data-alt="Craftsman style senior living with garden patio">
-                      <img src="consultancy/images/craftsman-senior-living-garden-patio-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                            aria-label="Show image 18: ornate urban brick building"
+                            data-src="consultancy/images/senior-living-urban-brick-ornate-800w.webp"
+                            data-alt="Ornate brick senior living building in an urban setting">
+                      <img src="consultancy/images/senior-living-urban-brick-ornate-160w.webp" alt="" width="160" height="120" loading="lazy" />
                     </button>
                   </li>
                 </ul>
@@ -506,22 +650,22 @@
               <div class="copy">
                 <h3 class="copy__title">Senior Living</h3>
                 <p class="copy__purpose">
-                  I help developers and operators make the right code,
-                  accessibility, and licensing decisions early in senior
-                  living projects — before they become costly constraints.
+                  Bring me in early on a senior living project and we'll settle
+                  the code, accessibility, and licensing decisions before they
+                  turn into constraints you have to design around.
                 </p>
-                <p class="copy__focus-label">Key areas of focus</p>
+                <p class="copy__focus-label">How I help</p>
                 <ul class="copy__bullets">
-                  <li>During Due Diligence: select the right code pathway (R-2, R-4, I-1, I-2)</li>
-                  <li>Align construction type and cost strategy</li>
-                  <li>Integrate licensing requirements from the start</li>
-                  <li>Coordinate accessibility across multiple standards</li>
-                  <li>Ensure design supports long-term operations and aging-in-place</li>
+                  <li>Choose the right code pathway during due diligence — R-2, R-4, I-1, or I-2</li>
+                  <li>Align construction type with your cost strategy</li>
+                  <li>Build licensing requirements in from the start</li>
+                  <li>Coordinate accessibility across the multiple standards that apply</li>
+                  <li>Keep the design ready for long-term operations and aging in place</li>
                 </ul>
                 <div class="copy__outcome">
                   <strong>The result</strong>
-                  Reduce redesign, control cost, and preserve flexibility as
-                  the project evolves.
+                  Less redesign, tighter cost control, and the flexibility to
+                  adapt as the project evolves.
                 </div>
               </div>
             </div>
@@ -533,36 +677,68 @@
                  aria-labelledby="tab-multi"
                  aria-hidden="true">
 
-              <figure class="gallery" data-count="3">
+              <figure class="gallery" data-count="7">
                 <div class="gallery__hero">
                   <img id="hero-multi"
-                       src="consultancy/images/mixed-use-residential-retail-balconies-800w.webp"
-                       alt="Mixed-use residential building with retail and balconies"
+                       src="consultancy/images/multifamily-Lincoln%20park%20Front-800w.webp"
+                       alt="Red-brick multi-family building with a rounded corner and ground-floor retail"
                        width="800" height="600" decoding="async" loading="lazy" />
                 </div>
                 <ul class="gallery__thumbs" role="list" aria-label="More images">
                   <li>
                     <button class="gallery__thumb" type="button" aria-current="true"
-                            aria-label="Show image 1: mixed-use with balconies"
-                            data-src="consultancy/images/mixed-use-residential-retail-balconies-800w.webp"
-                            data-alt="Mixed-use residential building with retail and balconies">
-                      <img src="consultancy/images/mixed-use-residential-retail-balconies-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                            aria-label="Show image 1: red-brick corner building"
+                            data-src="consultancy/images/multifamily-Lincoln%20park%20Front-800w.webp"
+                            data-alt="Red-brick multi-family building with a rounded corner and ground-floor retail">
+                      <img src="consultancy/images/multifamily-Lincoln%20park%20Front-160w.webp" alt="" width="160" height="120" loading="lazy" />
                     </button>
                   </li>
                   <li>
                     <button class="gallery__thumb" type="button" aria-current="false"
-                            aria-label="Show image 2: urban brick at dusk"
-                            data-src="consultancy/images/mixed-use-urban-brick-dusk-800w.webp"
-                            data-alt="Urban mixed-use brick building at dusk">
-                      <img src="consultancy/images/mixed-use-urban-brick-dusk-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                            aria-label="Show image 2: landscaped courtyard"
+                            data-src="consultancy/images/multifamily-Flat%20Irons%20(2)-800w.webp"
+                            data-alt="Landscaped courtyard at the center of a multi-family community">
+                      <img src="consultancy/images/multifamily-Flat%20Irons%20(2)-160w.webp" alt="" width="160" height="120" loading="lazy" />
                     </button>
                   </li>
                   <li>
                     <button class="gallery__thumb" type="button" aria-current="false"
-                            aria-label="Show image 3: suburban campus exterior"
-                            data-src="consultancy/images/senior-living-campus-suburban-exterior-800w.webp"
-                            data-alt="Suburban senior living campus exterior">
-                      <img src="consultancy/images/senior-living-campus-suburban-exterior-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                            aria-label="Show image 3: balconies on a tree-lined street"
+                            data-src="consultancy/images/multifamily-MOSELEY-MELVILLE-RESHOOT-3FINAL-800w.webp"
+                            data-alt="Contemporary multi-family building with tiered balconies on a tree-lined street">
+                      <img src="consultancy/images/multifamily-MOSELEY-MELVILLE-RESHOOT-3FINAL-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 4: glass balconies and courtyard"
+                            data-src="consultancy/images/multifamily-MELVILLEHOUSE-15FINAL-800w.webp"
+                            data-alt="Modern multi-family building with glass balconies and a courtyard sculpture">
+                      <img src="consultancy/images/multifamily-MELVILLEHOUSE-15FINAL-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 5: residences over a landscaped green"
+                            data-src="consultancy/images/multifamily-MELVILLEHOUSE-34FINAL-800w.webp"
+                            data-alt="Multi-family residences overlooking a landscaped green with a pavilion">
+                      <img src="consultancy/images/multifamily-MELVILLEHOUSE-34FINAL-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 6: building among mature trees"
+                            data-src="consultancy/images/multifamily-Hunter.%20Woods%20(4)-800w.webp"
+                            data-alt="Multi-family residential building nestled among mature trees">
+                      <img src="consultancy/images/multifamily-Hunter.%20Woods%20(4)-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 7: brick mixed-use at dusk"
+                            data-src="consultancy/images/multifamily-THEARBORS-16FINAL%20(1)-800w.webp"
+                            data-alt="Brick mixed-use multi-family building with ground-floor retail at dusk">
+                      <img src="consultancy/images/multifamily-THEARBORS-16FINAL%20(1)-160w.webp" alt="" width="160" height="120" loading="lazy" />
                     </button>
                   </li>
                 </ul>
@@ -571,21 +747,21 @@
               <div class="copy">
                 <h3 class="copy__title">Multi-Family</h3>
                 <p class="copy__purpose">
-                  I work with developers early in multi-family projects to
-                  align code decisions with density, cost, and feasibility —
-                  before the design gets locked in.
+                  On multi-family projects, I work with you early to line up
+                  code decisions with your density, cost, and feasibility goals
+                  — before the design gets locked in.
                 </p>
-                <p class="copy__focus-label">Key areas of focus</p>
+                <p class="copy__focus-label">How I help</p>
                 <ul class="copy__bullets">
-                  <li>During Due Diligence: optimize construction type, height, and allowable area</li>
-                  <li>Evaluate podium and mixed-use strategies</li>
-                  <li>Coordinate accessibility requirements tied to funding</li>
-                  <li>Identify opportunities to reduce firewalls and system costs</li>
-                  <li>Align code strategy with budget and schedule expectations</li>
+                  <li>Optimize construction type, height, and allowable area during due diligence</li>
+                  <li>Weigh podium and mixed-use strategies</li>
+                  <li>Coordinate the accessibility requirements tied to your funding</li>
+                  <li>Find opportunities to reduce firewalls and system costs</li>
+                  <li>Keep code strategy aligned with your budget and schedule</li>
                 </ul>
                 <div class="copy__outcome">
                   <strong>The result</strong>
-                  Better yield, fewer redesigns, and more predictable outcomes.
+                  Better yield, fewer redesigns, and outcomes you can predict.
                 </div>
               </div>
             </div>
@@ -597,44 +773,60 @@
                  aria-labelledby="tab-reno"
                  aria-hidden="true">
 
-              <figure class="gallery" data-count="4">
+              <figure class="gallery" data-count="6">
                 <div class="gallery__hero">
                   <img id="hero-reno"
-                       src="consultancy/images/senior-living-urban-brick-ornate-800w.webp"
-                       alt="Ornate urban brick building being assessed for renovation"
+                       src="consultancy/images/renovations-Virginian_082-800w.webp"
+                       alt="Renovated multi-story building with a covered entry and curved drive"
                        width="800" height="600" decoding="async" loading="lazy" />
                 </div>
                 <ul class="gallery__thumbs" role="list" aria-label="More images">
                   <li>
                     <button class="gallery__thumb" type="button" aria-current="true"
-                            aria-label="Show image 1: ornate urban brick"
-                            data-src="consultancy/images/senior-living-urban-brick-ornate-800w.webp"
-                            data-alt="Ornate urban brick building being assessed for renovation">
-                      <img src="consultancy/images/senior-living-urban-brick-ornate-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                            aria-label="Show image 1: renovated exterior"
+                            data-src="consultancy/images/renovations-Virginian_082-800w.webp"
+                            data-alt="Renovated multi-story building with a covered entry and curved drive">
+                      <img src="consultancy/images/renovations-Virginian_082-160w.webp" alt="" width="160" height="120" loading="lazy" />
                     </button>
                   </li>
                   <li>
                     <button class="gallery__thumb" type="button" aria-current="false"
-                            aria-label="Show image 2: urban brick with flags"
-                            data-src="consultancy/images/urban-senior-living-brick-flags-800w.webp"
-                            data-alt="Urban brick building with street presence and flags">
-                      <img src="consultancy/images/urban-senior-living-brick-flags-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                            aria-label="Show image 2: lobby with grand staircase"
+                            data-src="consultancy/images/renovations-Virginian_58-800w.webp"
+                            data-alt="Renovated lobby with a grand staircase and herringbone floor">
+                      <img src="consultancy/images/renovations-Virginian_58-160w.webp" alt="" width="160" height="120" loading="lazy" />
                     </button>
                   </li>
                   <li>
                     <button class="gallery__thumb" type="button" aria-current="false"
-                            aria-label="Show image 3: colonial with parking"
-                            data-src="consultancy/images/assisted-living-colonial-parking-lot-800w.webp"
-                            data-alt="Colonial assisted living facility with parking lot">
-                      <img src="consultancy/images/assisted-living-colonial-parking-lot-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                            aria-label="Show image 3: sitting area under a coffered ceiling"
+                            data-src="consultancy/images/renovations-Virginian_80-800w.webp"
+                            data-alt="Renovated sitting area beneath a circular coffered ceiling">
+                      <img src="consultancy/images/renovations-Virginian_80-160w.webp" alt="" width="160" height="120" loading="lazy" />
                     </button>
                   </li>
                   <li>
                     <button class="gallery__thumb" type="button" aria-current="false"
-                            aria-label="Show image 4: architectural section drawing"
-                            data-src="consultancy/images/architectural-section-drawing-800w.webp"
-                            data-alt="Architectural section drawing showing building systems">
-                      <img src="consultancy/images/architectural-section-drawing-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                            aria-label="Show image 4: lounge with exposed beams"
+                            data-src="consultancy/images/renovations-Virginian_59-800w.webp"
+                            data-alt="Renovated lounge with exposed beams and brick accents">
+                      <img src="consultancy/images/renovations-Virginian_59-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 5: renovated bar and dining lounge"
+                            data-src="consultancy/images/renovations-StoneHill_Andover_10-800w.webp"
+                            data-alt="Renovated bar and dining lounge with warm wood finishes">
+                      <img src="consultancy/images/renovations-StoneHill_Andover_10-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 6: renovated dining room"
+                            data-src="consultancy/images/renovations-hunter.woods.2-40-fused-800w.webp"
+                            data-alt="Renovated dining room with an open servery">
+                      <img src="consultancy/images/renovations-hunter.woods.2-40-fused-160w.webp" alt="" width="160" height="120" loading="lazy" />
                     </button>
                   </li>
                 </ul>
@@ -643,24 +835,111 @@
               <div class="copy">
                 <h3 class="copy__title">Renovation, Repositioning &amp; Conversions</h3>
                 <p class="copy__purpose">
-                  I help developers evaluate existing buildings — office,
-                  residential, or underutilized assets — to determine the
-                  most viable path for renovation or conversion before
-                  design and capital are committed.
+                  Thinking about renovating or converting an existing building
+                  — office, residential, or an underused asset? I help you find
+                  the most viable path before you commit design and capital.
                 </p>
-                <p class="copy__focus-label">Key areas of focus</p>
+                <p class="copy__focus-label">How I help</p>
                 <ul class="copy__bullets">
-                  <li>During Due Diligence: align existing construction type with target use</li>
-                  <li>Use the IEBC to minimize unnecessary upgrades</li>
-                  <li>Coordinate accessibility across multiple standards</li>
-                  <li>Evaluate multi-family vs. senior living feasibility</li>
-                  <li>Identify life safety and accessibility impacts early</li>
-                  <li>Align strategy with budget and schedule expectations</li>
+                  <li>Match the existing construction type to your target use during due diligence</li>
+                  <li>Use the IEBC to avoid unnecessary upgrades</li>
+                  <li>Coordinate accessibility across the standards that apply</li>
+                  <li>Weigh multi-family against senior living feasibility</li>
+                  <li>Surface life safety and accessibility impacts early</li>
+                  <li>Keep the strategy aligned with your budget and schedule</li>
                 </ul>
                 <div class="copy__outcome">
                   <strong>The result</strong>
-                  Unlock value, reduce risk, and avoid costly missteps early
-                  in the process.
+                  Unlocked value, less risk, and fewer costly missteps early in
+                  the process.
+                </div>
+              </div>
+            </div>
+
+            <!-- ── PANEL 4: PEER REVIEW ───────────────────────────── -->
+            <div class="consulting__panel"
+                 role="tabpanel"
+                 id="panel-peer"
+                 aria-labelledby="tab-peer"
+                 aria-hidden="true">
+
+              <figure class="gallery" data-count="5">
+                <div class="gallery__hero">
+                  <img id="hero-peer"
+                       src="consultancy/images/multifamily-THEARBORS-16FINAL%20(1)-800w.webp"
+                       alt="Brick mixed-use building with ground-floor retail at dusk"
+                       width="800" height="600" decoding="async" loading="lazy" />
+                </div>
+                <ul class="gallery__thumbs" role="list" aria-label="More images">
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="true"
+                            aria-label="Show image 1: mixed-use building at dusk"
+                            data-src="consultancy/images/multifamily-THEARBORS-16FINAL%20(1)-800w.webp"
+                            data-alt="Brick mixed-use building with ground-floor retail at dusk">
+                      <img src="consultancy/images/multifamily-THEARBORS-16FINAL%20(1)-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 2: suburban exterior"
+                            data-src="consultancy/images/senior-living-campus-suburban-exterior-800w.webp"
+                            data-alt="Suburban multi-story senior living building">
+                      <img src="consultancy/images/senior-living-campus-suburban-exterior-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 3: high-rise aerial rendering"
+                            data-src="consultancy/images/senior-living-highrise-aerial-render-800w.webp"
+                            data-alt="Aerial rendering of a senior living high-rise">
+                      <img src="consultancy/images/senior-living-highrise-aerial-render-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 4: ornate urban brick building"
+                            data-src="consultancy/images/senior-living-urban-brick-ornate-800w.webp"
+                            data-alt="Ornate brick senior living building in an urban setting">
+                      <img src="consultancy/images/senior-living-urban-brick-ornate-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                  <li>
+                    <button class="gallery__thumb" type="button" aria-current="false"
+                            aria-label="Show image 5: renovated dining room"
+                            data-src="consultancy/images/renovations-hunter.woods.2-40-fused-800w.webp"
+                            data-alt="Renovated dining room with an open servery">
+                      <img src="consultancy/images/renovations-hunter.woods.2-40-fused-160w.webp" alt="" width="160" height="120" loading="lazy" />
+                    </button>
+                  </li>
+                </ul>
+              </figure>
+
+              <div class="copy">
+                <h3 class="copy__title">Architectural Peer Review &amp; Code Analysis</h3>
+                <p class="copy__purpose">
+                  Bring me onto your next submission for an independent,
+                  peer-level review of the permit and construction documents —
+                  a second set of eyes that catches code and accessibility
+                  issues before they reach permitting, bidding, or construction.
+                  Engage me at any phase, from schematic design through
+                  pre-construction; the review is backed by my work as Architect
+                  of Record on 400-plus projects in more than 20 states.
+                </p>
+                <p class="copy__focus-label">What I'll review on your project</p>
+                <ul class="copy__bullets">
+                  <li>Building code compliance — IBC, IEBC, and NFPA 101</li>
+                  <li>Accessibility — ADA, FHA, UFAS, ICC A117.1, PROWAG, and FGI guidelines</li>
+                  <li>Construction type and fire-resistance strategy</li>
+                  <li>Means of egress and life safety systems</li>
+                  <li>Coordination between your drawings and code intent</li>
+                  <li>Potential permitting issues, flagged early</li>
+                </ul>
+                <div class="copy__outcome">
+                  <strong>What you get</strong>
+                  Code and accessibility conflicts caught early, fewer redesign
+                  and permitting delays, smoother AHJ and Fire Marshal reviews,
+                  and an added layer of quality control before you submit or
+                  build.
                 </div>
               </div>
             </div>
@@ -741,6 +1020,60 @@
       });
     });
   });
+
+  // ── 3. COLLAPSE THUMBNAILS PAST TWO ROWS ───────────────────────
+  // When a strip would run past two rows, hide the overflow and put an
+  // "expand" square in the last cell of row two; clicking it shows all.
+  document.querySelectorAll('.gallery__thumbs').forEach((list) => {
+    const items = Array.from(list.children);
+    if (!items.length) return;
+
+    const moreLi = document.createElement('li');
+    const moreBtn = document.createElement('button');
+    moreBtn.type = 'button';
+    moreBtn.className = 'gallery__thumb gallery__expand';
+    moreLi.appendChild(moreBtn);
+
+    let expanded = false;
+    moreBtn.addEventListener('click', () => { expanded = true; relayout(); });
+
+    function relayout() {
+      if (moreLi.parentNode) moreLi.remove();
+      items.forEach((li) => { li.hidden = false; });
+      if (expanded) return;
+
+      // How many thumbs fit on the first row?
+      const top0 = items[0].offsetTop;
+      let perRow = 0;
+      for (const li of items) {
+        if (li.offsetTop === top0) perRow++; else break;
+      }
+      if (perRow < 1) return;
+
+      const twoRows = perRow * 2;
+      if (items.length <= twoRows) return;   // already fits in two rows
+
+      const visible = twoRows - 1;            // last cell holds the button
+      items.forEach((li, i) => { li.hidden = i >= visible; });
+      const hidden = items.length - visible;
+      moreBtn.textContent = '+' + hidden;
+      moreBtn.setAttribute('aria-label', 'Show ' + hidden + ' more images');
+      items[visible - 1].after(moreLi);
+    }
+
+    relayout();
+    list._relayout = relayout;
+  });
+
+  let resizeTimer;
+  function relayoutAll() {
+    document.querySelectorAll('.gallery__thumbs').forEach((l) => l._relayout && l._relayout());
+  }
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(relayoutAll, 150);
+  });
+  window.addEventListener('load', relayoutAll);
 })();
 </script>
 </body>

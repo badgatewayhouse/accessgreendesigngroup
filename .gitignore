@@ -10,3 +10,9 @@ images-src/
 
 # Node
 node_modules/
+
+# macOS
+.DS_Store
+
+# Claude Code local state (worktrees, etc.) — never commit
+.claude/

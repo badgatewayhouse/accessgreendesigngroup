@@ -4,3 +4,7 @@ images-src/
 package.json
 package-lock.json
 .git/
+.gitignore
+.claude/
+**/.DS_Store
+*.pdf

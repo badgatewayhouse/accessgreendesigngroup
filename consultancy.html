@@ -137,6 +137,10 @@
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      /* Keep the section-header strip a strictly horizontal pan on touch —
+         no diagonal drift, no vertical page bounce while swiping it. */
+      touch-action: pan-x;
+      overscroll-behavior-x: contain;
       /* Auto-number tabs so sections can be reordered in the markup
          (move a tab + its panel together) without renumbering by hand. */
       counter-reset: tabnum;
@@ -190,14 +194,21 @@
     .consulting__panels {
       overflow: hidden;
       position: relative;
+      /* Height is driven by the active panel (set in JS) so the viewport
+         hugs its content instead of the tallest panel. */
+      transition: height var(--dur-slide) var(--ease);
     }
     .consulting__track {
       display: flex;
+      /* Don't stretch panels to equal height — each keeps its natural size
+         so a short panel's grid rows can't open a gap between image and copy. */
+      align-items: flex-start;
       transition: transform var(--dur-slide) var(--ease);
       will-change: transform;
     }
     @media (prefers-reduced-motion: reduce) {
       .consulting__track { transition: none; }
+      .consulting__panels { transition: none; }
     }
 
     .consulting__panel {
@@ -966,9 +977,19 @@
   const tablist = document.querySelector('.consulting__tablist');
   const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
   const track = document.getElementById('consulting-track');
+  const panelsViewport = document.querySelector('.consulting__panels');
   const panels = Array.from(document.querySelectorAll('.consulting__panel'));
 
+  let activeIdx = 0;
+
+  // Size the viewport to the active panel so it never inherits the tallest
+  // panel's height (which left a gap above the copy on mobile).
+  function syncPanelHeight() {
+    panelsViewport.style.height = panels[activeIdx].offsetHeight + 'px';
+  }
+
   function activateTab(idx, { focus = false } = {}) {
+    activeIdx = idx;
     tabs.forEach((tab, i) => {
       const selected = i === idx;
       tab.setAttribute('aria-selected', String(selected));
@@ -979,6 +1000,7 @@
       p.setAttribute('aria-hidden', String(i !== idx));
     });
     track.style.transform = `translateX(-${idx * 100}%)`;
+    syncPanelHeight();
   }
 
   tabs.forEach((tab, i) => {
@@ -1035,7 +1057,7 @@
     moreLi.appendChild(moreBtn);
 
     let expanded = false;
-    moreBtn.addEventListener('click', () => { expanded = true; relayout(); });
+    moreBtn.addEventListener('click', () => { expanded = true; relayout(); syncPanelHeight(); });
 
     function relayout() {
       if (moreLi.parentNode) moreLi.remove();
@@ -1068,6 +1090,7 @@
   let resizeTimer;
   function relayoutAll() {
     document.querySelectorAll('.gallery__thumbs').forEach((l) => l._relayout && l._relayout());
+    syncPanelHeight();
   }
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
